@@ -1,0 +1,30 @@
+
+					<ul class="list">
+						<li>
+							<a class='collapsed_me' onclick='showHide(this,"convertTool");'>1. 地理坐标与高斯坐标转换</a>
+							<div class="input-group" id="convertTool" style="display:none;margin-top:20px;">
+								<label>方向[<a style="font-size:12px;" onClick="navigator.notification.alert('正向为地理转高斯，反向为高斯转地理。',null,'转换方向');">说明</a>]</label><input id="GaussToL" type="checkbox" name="GaussToL" checked="checked" class="toggle"><label for="GaussToL" data-on="正向" data-off="反向"><span></span></label><br style="clear:both;">
+								<label for="longitudeT">经度</label><input  id="longitudeT" type="text" placeholder="0"><br style="clear:both;">
+								<label for="latitudeT">纬度</label><input  id="latitudeT" type="text" placeholder="0"><br style="clear:both;">
+								<label for="xT">X: </label><input  id="xT" type="text" placeholder="0"><br style="clear:both;">
+								<label for="yT">Y: </label><input  id="yT" type="text" placeholder="0"><br style="clear:both;">
+								<label for="convert"> </label><a id="convert" class="button" onClick="convertGeo();">转&nbsp;&nbsp;&nbsp;换</a>
+							</div>
+                        </li>
+						<li>
+							<a class='collapsed_me' onclick='showHide(this,"azimuthTool");'>2. 站立点到目标点的方位角计算</a>
+							<div class="input-group" id="azimuthTool" style="display:none;margin-top:20px;">
+								<label>直角坐标？</label><input id="azimuthFormat" type="checkbox" name="GaussToL" checked="checked" class="toggle"><label for="azimuthFormat" data-on="是" data-off="否"><span></span></label><br style="clear:both;">
+								<label for="SX">站立点X:</label><input  id="SX" type="text" placeholder="0"><br style="clear:both;">
+								<label for="SY">站立点Y:</label><input  id="SY" type="text" placeholder="0"><br style="clear:both;">
+								<label for="DX">目标点X:</label><input  id="DX" type="text" placeholder="0"><br style="clear:both;">
+								<label for="DY">目标点Y:</label><input  id="DY" type="text" placeholder="0"><br style="clear:both;">
+								<label for="angleNum">角度:</label><input  id="angleNum" type="text" placeholder="0"><br style="clear:both;">
+								<label for="azimuthNum">方位角:</label><input  id="azimuthNum" type="text" placeholder="0"><br style="clear:both;">
+								<label for="calAzimuth"> </label><a id="calAzimuth" class="button" onClick="azimuthCal();">计&nbsp;&nbsp;&nbsp;算</a>
+							</div>
+						</li>
+						<li>
+							<a href="#pointsManageTab" class='collapsed_me'>3. 航点管理</a>
+						</li>
+					</ul>
