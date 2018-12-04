@@ -12,7 +12,6 @@
 (function($) {
     "use strict";
 
-    var hasLaunched = false;
     var startPath = window.location.pathname + window.location.search;
     var defaultHash = window.location.hash;
     var previousTarget = defaultHash;
@@ -38,11 +37,7 @@
             that.autoLaunch=false;
         }
 
-        if ($("#afui").length === 1) {
-            setupCustomTheme();
-        }
-
-        var setupAFDom=function(){
+        var setupAFDom = function() {
             //boot touchLayer
             //create afui element if it still does not exist
             var afui = document.getElementById("afui");
@@ -108,23 +103,26 @@
         function setupCustomTheme() {
 
             if (that.useOSThemes) {
-                $("#afui").removeClass("ios,ios7,win8,tizen,bb,android,light,dark");
+                $("#afui").removeClass("ios ios7 win8 tizen bb android light dark firefox");
                 if ($.os.android) $("#afui").addClass("android");
                 else if ($.os.ie) {
                     $("#afui").addClass("win8");
-                    $("head").append($.create("script", {
-                        src: "plugins/af.8tiles.js"
-                    }));
                 } else if ($.os.blackberry||$.os.blackberry10||$.os.playbook) {
                     $("#afui").addClass("bb");
                     that.backButtonText = "Back";
-                } else if ($.os.ios7)
+                } else if ($.os.ios7){
                     $("#afui").addClass("ios7");
-                else if ($.os.ios)
+                   
+                } else if ($.os.ios)
                     $("#afui").addClass("ios");
                 else if($.os.tizen)
                     $("#afui").addClass("tizen");
+                else if($.os.fennec){
+                    $("#afui").addClass("firefox");
+                    that.animateHeaders=false;
+                }
             }
+
             if($.os.ios){
                 $("head").find("#iosBlurrHack").remove();
                 var hackStyle="-webkit-backface-visibility: hidden;";
@@ -135,14 +133,26 @@
                 //$("head").append("<style id='iosBlurrHack'>#afui .panel  {"+hackStyle+"} #afui .panel > * {-webkit-backface-visibility:hidden;}</style>");
                 $("head").append("<style id='iosBlurrHack'>#afui .y-scroll > *, #afui .x-scroll > * {"+hackStyle+"}</style>");
             }
-            else if ($.os.anroid&&!$.os.androidICS){
+            else if ($.os.android&&!$.os.androidICS){
                 that.transitionTime = "150ms";
             }
             else if($.os.fennec){
                 that.ready(function(){
-                    var tmpH=numOnly($("#header").height())+numOnly($("#navbar").height());
-                    $("#content").css("height",window.innerHeight-tmpH);
+                    window.addEventListener("deviceorientation",function(){
+                        var tmpH=numOnly($("#header").css('height'))+numOnly($("#navbar").css('height'));
+                        $("#content").css("height",window.innerHeight-tmpH);
+                    });
                 });
+            }
+
+            if($.os.ios7&&$("#afui").hasClass("ios7")){
+                if(that.overlayStatusbar){
+                    that.ready(function(){
+                        $("#afui").addClass("overlayStatusbar");
+                    });
+
+                    $(document.body).css("background","rgb(249,249,249)");
+                }
             }
 
         }
@@ -191,8 +201,9 @@
         sideMenuWidth: "200px",
         handheldMinWidth: "768",
         trimBackButtonText: true,
-        useOSThemes: true,
-        lockPageBounce: false,
+        useOSThemes: false,
+        overlayStatusbar: false,
+        lockPageBounce: true,
         animateHeaders: true,
         useAutoPressed: true,
         horizontalScroll:false,
@@ -204,9 +215,11 @@
             var that=this;
             if (this.autoLaunch) {
                 if(this.isIntel){
-                    $(document).one("intel.xdk.device.ready",function(){
+                    var xdkLaunch=function(){
                         that.launch();
-                    });
+                        document.removeEventListener("intel.xdk.device.ready",xdkLaunch);
+                    };
+                    document.addEventListener("intel.xdk.device.ready",xdkLaunch);
                 }
                 else {
                     this.launch();
@@ -237,7 +250,7 @@
            ```
            @title $.ui.enableTabBar
          */
-        enableTabBar:function(e){
+        enableTabBar:function(){
             $(document).on("click",".button-grouped.tabbed",function(e){
                 var $el=$(e.target);
                 $el.closest(".tabbed").find(".button").data("ignore-pressed","true").removeClass("pressed");
@@ -255,7 +268,7 @@
            ```
          * @title $.ui.disableTabBar
          */
-        disableTabBar:function(e){
+        disableTabBar:function(){
             $(document).off("click",".button-grouped.tabbed");
             $(".button-grouped.tabbed .button").removeAttr("data-ignore-pressed");
         },
@@ -460,7 +473,7 @@
            ```
          * @title $.ui.resetScrollers
          */
-        resetScrollers: true,
+        resetScrollers: false,
         /**
          * function to fire when afui is ready and completed launch
            ```
@@ -474,7 +487,7 @@
             if (this.launchCompleted)
                 param();
             else {
-                $(document).on("afui:ready", function(e) {
+                $(document).one("afui:ready", function() {
                     param();
                 });
             }
@@ -488,7 +501,7 @@
          * @title $.ui.setBackButtonStyle(class)
          */
         setBackButtonStyle: function(className) {
-            $.query("#header #backButton").get(0).className=className;
+            $.query("#header .backButton").get(0).className=className;
 
         },
         /**
@@ -700,7 +713,7 @@
             var panelMask = $.query(".afui_panel_mask");
             time = time || this.transitionTime;
             var open = this.isSideMenuOn();
-            var toX=aside?"-"+asideMenu.width():menu.width();
+            var toX=aside?"-"+numOnly(asideMenu.css("width")):numOnly(menu.css("width"));
             // add panel mask to block when side menu is open for phone devices
             if(panelMask.length === 0 && window.innerWidth < $.ui.handheldMinWidth){
                 els.append("<div class='afui_panel_mask'></div>");
@@ -772,7 +785,6 @@
             this.disableLeftSideMenu();
         },
         disableLeftSideMenu:function(){
-            var that = this;
             var els = $.query("#content, #header, #navbar");
             if (this.isSideMenuOn()) {
                 this.toggleSideMenu(false, function(canceled) {
@@ -802,7 +814,6 @@
         * @title $.ui.disableSideMenu();
         */
         disableRightSideMenu:function(){
-            var that = this;
             var els = $.query("#content, #header, #navbar");
             if (this.isSideMenuOn()) {
                 this.toggleSideMenu(false, function(canceled) {
@@ -888,7 +899,15 @@
          */
         updateNavbarElements: function(elems) {
             if (this.prevFooter) {
-                if (this.prevFooter.data("parent")) this.prevFooter.appendTo("#" + this.prevFooter.data("parent"));
+                if (this.prevFooter.data("parent")){
+                    var useScroller = this.scrollingDivs.hasOwnProperty(this.prevFooter.data("parent"));
+                    if($.feat.nativeTouchScroll||$.os.desktop || !useScroller ){
+                        this.prevFooter.appendTo("#" + this.prevFooter.data("parent"));
+                    }
+                    else {
+                        this.prevFooter.appendTo($("#" + this.prevFooter.data("parent")).find(".afScrollPanel"));
+                    }
+                }
                 else this.prevFooter.appendTo("#afui");
             }
             if (!$.is$(elems)) //inline footer
@@ -937,11 +956,19 @@
             if (elems === this.prevHeader) return;
             this._currentHeaderID=elems.prop("id");
             if (this.prevHeader) {
+                var useScroller = this.scrollingDivs.hasOwnProperty(this.prevHeader.data("parent"));
                 //Let's slide them out
                 $.query("#header").append(elems);
                 //Do not animate - sometimes they act funky
                 if (!$.ui.animateHeaders) {
-                    if (that.prevHeader.data("parent")) that.prevHeader.appendTo("#" + that.prevHeader.data("parent"));
+                    if (that.prevHeader.data("parent")){
+                        if($.feat.nativeTouchScroll||$.os.desktop || !useScroller ){
+                            this.prevHeader.appendTo("#" + this.prevHeader.data("parent"));
+                        }
+                        else {
+                            this.prevHeader.appendTo($("#" + this.prevHeader.data("parent")).find(".afScrollPanel"));
+                        }
+                    }
                     else that.prevHeader.appendTo("#afui");
                     that.prevHeader = elems;
                     return;
@@ -962,7 +989,14 @@
                     time: that.transitionTime,
                     delay: numOnly(that.transitionTime) / 5 + "ms",
                     complete: function() {
-                        if (that.prevHeader.data("parent")) that.prevHeader.appendTo("#" + that.prevHeader.data("parent"));
+                        if (that.prevHeader.data("parent")){
+                            if($.feat.nativeTouchScroll||$.os.desktop || !useScroller ){
+                                that.prevHeader.appendTo("#" + that.prevHeader.data("parent"));
+                            }
+                            else {
+                                that.prevHeader.appendTo($("#" + that.prevHeader.data("parent")).find(".afScrollPanel"));
+                            }
+                        }
                         else that.prevHeader.appendTo("#afui");
                         that.prevHeader.removeClass("ignore");
                         that.css3animate(that.prevHeader, {
@@ -997,7 +1031,6 @@
             return this.updateRightSideMenuElements.apply(this,arguments);
         },
         updateRightSideMenuElements:function(elems){
-            var that = this;
             if (elems === undefined || elems === null) return;
             var nb = $.query("#aside_menu_scroller");
 
@@ -1007,6 +1040,14 @@
             }
 
             if (!$.is$(elems)) elems = $.query("#" + elems);
+
+            if($(elems).attr("title")){
+                $(elems).prepend(
+                    $.create("header", {className:"header"}).append(
+                        $.create("h1", {html:$(elems).attr("title")}).get(0))
+                );
+                $(elems).removeAttr("title");
+            }
 
             nb.html("");
             nb.append(elems);
@@ -1034,7 +1075,6 @@
             return this.updateLeftSideMenuElements.apply(this,arguments);
         },
         updateLeftSideMenuElements:function(elems) {
-            var that = this;
             if (elems === undefined || elems === null) return;
             var nb = $.query("#menu_scroller");
 
@@ -1044,6 +1084,14 @@
             }
 
             if (!$.is$(elems)) elems = $.query("#" + elems);
+
+            if($(elems).attr("title")){
+                $(elems).prepend(
+                    $.create("header", {className:"header"}).append(
+                        $.create("h1", {html:$(elems).attr("title")}).get(0))
+                );
+                $(elems).removeAttr("title");
+            }
 
             nb.html("");
             nb.append(elems);
@@ -1079,15 +1127,15 @@
             if(this._currentHeaderID !== "defaultHeader") return;
             if (this.trimBackButtonText && text.length >= 7)
                 text = text.substring(0, 5) + "...";
-            if (this.backButtonText.length > 0) $.query("#header header:not(.ignore) #backButton").html(this.backButtonText);
-            else $.query("#header header:not(.ignore)  #backButton").html(text);
+            if (this.backButtonText.length > 0) $.query("#header header:not(.ignore) .backButton").html(this.backButtonText);
+            else $.query("#header header:not(.ignore)  .backButton").html(text);
         },
         /**
          * Toggle visibility of the back button
          */
         setBackButtonVisibility: function(show) {
-            if (!show) $.query("#header #backButton").css("visibility", "hidden");
-            else $.query("#header #backButton").css("visibility", "visible");
+            if (!show) $.query("#header .backButton").css("visibility", "hidden");
+            else $.query("#header .backButton").css("visibility", "visible");
         },
         /**
          * Show the loading mask
@@ -1153,6 +1201,7 @@
                 $(that.modalWindow).css("display","");
                 $(that.modalWindow).addClass("display","flexContainer");
                 if (useScroller) {
+
                     this.scrollingDivs.modal_container.enable(that.resetScrollers);
                 }
                 else {
@@ -1166,7 +1215,7 @@
                     modalParent.find("#modalHeader").append(elemsToCopy.filter("header")).show();
                 } else { // add default header with close
                     modalParent.find("#modalHeader").append(
-                        $.create("header", {className:"header"}).append(
+                        $.create("header", {}).append(
                             $.create("h1", {html:$panel.data("title")}).get(0))
                         .append(
                             $.create("a", {className:"button icon close"}).attr("onclick","$.ui.hideModal()").get(0)
@@ -1301,8 +1350,17 @@
          * @title $.ui.addContentDiv(id, content, title);
          */
         addContentDiv: function(el, content, title, refresh, refreshFunc) {
-            el = typeof(el) !== "string" ? el : el.indexOf("#") === -1 ? "#" + el : el;
-            var myEl = $.query(el).get(0);
+            var myEl;
+            if(typeof(el) === "string") {
+                if(el.lastIndexOf("#", 1) === -1) el = "#" + el;
+                myEl = $.query(el).get(0);
+            } else if($.is$(el)) {
+                myEl = el.get(0);
+                el = myEl.id;
+            } else {
+                myEl = el;
+                el = myEl.id;
+            }
             var newDiv, newId;
             if (!myEl) {
                 newDiv = $.create("div", {
@@ -1468,7 +1526,6 @@
             var that = this;
             var hasFooter = what.getAttribute("data-footer");
             var hasHeader = what.getAttribute("data-header");
-
             //$asap removed since animations are fixed in css3animate
             if (hasFooter && hasFooter.toLowerCase() === "none") {
                 that.toggleNavMenu(false);
@@ -1568,6 +1625,8 @@
          */
         parseScriptTags: function(div) {
             if (!div) return;
+            if(!$.fn||$.fn.namespace!=="appframework") return;
+
             $.parseJS(div);
         },
         /**
@@ -1587,14 +1646,12 @@
         loadContent: function(target, newTab, back, transition, anchor) {
 
             if (this.doingTransition) {
-                var that = this;
                 this.loadContentQueue.push([target, newTab, back, transition, anchor]);
                 return;
             }
             if (target.length === 0) return;
 
 
-            var what = null;
             var loadAjax = true;
             anchor = anchor || document.createElement("a"); //Hack to allow passing in no anchor
             if (target.indexOf("#") === -1) {
@@ -1716,11 +1773,11 @@
          * @param {string} target
          * @param {boolean=} newtab (resets history)
          * @param {boolean=} go back (initiate the back click)
-         * @param {string=} transition
-         * @title $.ui.loadDiv(target,newTab,goBack,transition);
+         * @title $.ui.loadContentData(target,newTab,goBack);
          * @api private
          */
-        loadContentData: function(what, newTab, back, transition) {
+        loadContentData: function(what, newTab, back) {
+
             var prevId, el, val, slashIndex;
             if (back) {
                 if (this.history.length > 0) {
@@ -1751,7 +1808,9 @@
                 this.setBackButtonVisibility(false);
                 this.history = [];
                 $("#header #menubadge").css("float", "left");
-            } else if (this.showBackButton && this.showBackbutton) this.setBackButtonVisibility(true);
+            } else {
+                this.setBackButtonVisibility( this.showBackButton && this.showBackbutton );
+            }
             this.activeDiv = what;
             if (this.scrollingDivs[this.activeDiv.id]) {
                 this.scrollingDivs[this.activeDiv.id].enable(this.resetScrollers);
@@ -1820,15 +1879,18 @@
                         } else
                             urlHash = that.addContentDiv(urlHash, xmlhttp.responseText, anchor.title ? anchor.title : target, refresh, refreshFunction);
                     } else {
+
                         that.updatePanel("afui_ajax", xmlhttp.responseText);
-                        $.query("#afui_ajax").get(0).setAttribute("data-title",anchor.title ? anchor.title : target);
+                        $.query("#afui_ajax").attr("data-title",anchor.title ? anchor.title : target);
                         that.loadContent("#afui_ajax", newTab, back, transition);
+
                         doReturn = true;
                     }
                     //Let's load the content now.
                     //We need to check for any script tags and handle them
                     var div = document.createElement("div");
                     $(div).html(xmlhttp.responseText);
+
                     that.parseScriptTags(div);
 
                     if (doReturn) {
@@ -1993,9 +2055,9 @@
 
 
             //insert backbutton (should optionally be left to developer..)
-            $(this.header).html("<a id='backButton' class='button'></a> <h1 id='pageTitle'></h1>" + this.header.innerHTML);
-            this.backButton = $.query("#header #backButton").css("visibility", "hidden");
-            $(document).on("click", "#header #backButton", function(e) {
+            $(this.header).html("<a class='backButton button'></a> <h1 id='pageTitle'></h1>" + this.header.innerHTML);
+            this.backButton = $.query("#header .backButton").css("visibility", "hidden");
+            $(document).on("click", "#header .backButton", function(e) {
                 e.preventDefault();
                 that.goBack();
             });
@@ -2050,7 +2112,6 @@
             for (var i = 0; i < contentDivs.length; i++) {
                 var el = contentDivs[i];
                 var tmp = el;
-                var id = el.id;
                 var prevSibling = el.previousSibling;
                 if (el.parentNode && el.parentNode.id !== "content") {
                     if (tmp.getAttribute("selected")) this.firstDiv = el;
@@ -2086,7 +2147,7 @@
                             $(document).trigger("defer:loaded");
                         }
                     },
-                    error: function(msg) {
+                    error: function() {
                         //still trigger the file as being loaded to not block $.ui.ready
                         console.log("Error with deferred load " + intel.xdk.webRoot + defer[j]);
                         loaded++;
@@ -2163,7 +2224,7 @@
 
 
                     if($.ui.splitview&&window.innerWidth>parseInt($.ui.handheldMinWidth,10)){
-                        $.ui.sideMenuWidth=$("#menu").width()+"px";
+                        $.ui.sideMenuWidth=$("#menu").css("width")+"px";
                     }
 
                     var firstPanelId = that.getPanelId(defaultHash);
@@ -2182,7 +2243,7 @@
                         //Need to call after parsePanelFunctions, since new headers can override
                         that.loadContentData(that.firstDiv);
 
-                        $.query("#header #backButton").css("visibility", "hidden");
+                        $.query("#header .backButton").css("visibility", "hidden");
                         if (that.firstDiv.getAttribute("data-modal") === "true" || that.firstDiv.getAttribute("modal") === "true") {
                             that.showModal(that.firstDiv.id);
                         }
@@ -2191,10 +2252,13 @@
                     that.launchCompleted = true;
                     //trigger ui ready
                     $.query("#afui #splashscreen").remove();
-                    setTimeout(function(){
+                    if($.os.fennec){
                         $(document).trigger("afui:ready");
-                    });
-
+                    }
+                    else
+                        setTimeout(function(){
+                            $(document).trigger("afui:ready");
+                        });
                 };
                 if (loadingDefer) {
                     $(document).one("defer:loaded", loadFirstDiv);
@@ -2240,7 +2304,7 @@
         /**
          * This is the default transition.  It simply shows the new panel and hides the old
          */
-        noTransition: function(oldDiv, currDiv, back) {
+        noTransition: function(oldDiv, currDiv) {
             currDiv.style.display = "block";
             oldDiv.style.display = "block";
             var that = this;
@@ -2263,6 +2327,11 @@
         finishTransition: function(oldDiv, currDiv) {
             oldDiv.style.display = "none";
             this.doingTransition = false;
+            if(oldDiv)
+                $(oldDiv).trigger("unloadpanelcomplete");
+            if(currDiv)
+                $(currDiv).trigger("loadpanelcomplete");
+
             if (currDiv) this.clearAnimations(currDiv);
             if (oldDiv) this.clearAnimations(oldDiv);
             $.trigger(this, "content-loaded");
@@ -2372,18 +2441,19 @@
 
 (function($) {
     "use strict";
-    $(document).one("intel.xdk.device.ready", function() { //in intel xdk, we need to undo the height stuff since it causes issues.
+    var xdkDeviceReady=function(){
         $.ui.isIntel=true;
         setTimeout(function() {
             document.getElementById("afui").style.height = "100%";
             document.body.style.height = "100%";
             document.documentElement.style.minHeight = window.innerHeight;
         }, 30);
-
-    });
+        document.removeEventListener("intel.xdk.device.ready",xdkDeviceReady);
+    };
+    document.addEventListener("intel.xdk.device.ready",xdkDeviceReady);
     //Fix an ios bug where scrolling will not work with rotation
     if ($.feat.nativeTouchScroll) {
-        document.addEventListener("orientationchange", function(e) {
+        document.addEventListener("orientationchange", function() {
             if ($.ui.scrollingDivs[$.ui.activeDiv.id]) {
                 var tmpscroller = $.ui.scrollingDivs[$.ui.activeDiv.id];
                 if(!tmpscroller) return;

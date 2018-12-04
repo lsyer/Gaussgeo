@@ -29,11 +29,11 @@
         return $.touchLayer;
     };
     //configuration stuff
-    var inputElements = ["input", "select", "textarea"];
+    var inputElements = ["input", "select", "textarea","range"];
     var autoBlurInputTypes = ["button", "radio", "checkbox", "range", "date"];
     var requiresJSFocus = $.os.ios; //devices which require .focus() on dynamic click events
     var verySensitiveTouch = $.os.blackberry; //devices which have a very sensitive touch and touchmove is easily fired even on simple taps
-    var inputElementRequiresNativeTap = $.os.blackberry||$.os.fennec || ($.os.android && !$.os.chrome); //devices which require the touchstart event to bleed through in order to actually fire the click on select elements
+    var inputElementRequiresNativeTap = $.os.blackberry||$.os.fennec || ($.os.android&&!$.os.androidICS); //devices which require the touchstart event to bleed through in order to actually fire the click on select elements
 //    var selectElementRequiresNativeTap = $.os.blackberry||$.os.fennec || ($.os.android && !$.os.chrome); //devices which require the touchstart event to bleed through in order to actually fire the click on select elements
 //    var focusScrolls = $.os.ios; //devices scrolling on focus instead of resizing
     var requirePanning = $.os.ios&&!$.os.ios7; //devices which require panning feature
@@ -42,11 +42,6 @@
     var skipTouchEnd = false; //Fix iOS bug with alerts/confirms
     var cancelClick = false;
 
-    function getTime() {
-        var d = new Date();
-        var n = d.getTime();
-        return n;
-    }
     var touchLayer = function(el) {
         this.clearTouchVars();
         el.addEventListener("touchstart", this, false);
@@ -91,7 +86,7 @@
             that.isScrolling = true;
             that.scrollingEl_ = el;
             if (!$.feat.nativeTouchScroll)
-                that.scrollerIsScrolling = true;            
+                that.scrollerIsScrolling = true;
             that.fireEvent("UIEvents", "scrollstart", el, false, false);
         });
         $.bind(this, "scrollend", function(el) {
@@ -235,7 +230,7 @@
             } else
                 return numOnly(document.documentElement.style.height); //TODO: works well on iPhone, test BB
         },
-        onOrientationChange: function(e) {
+        onOrientationChange: function() {
             //this.log("orientationchange");
             //if a resize already happened, fire the orientationchange
             var self=this;
@@ -249,13 +244,9 @@
             } else this.previewReshapeEvent("orientationchange");
             if($.os.android && $.os.chrome) {
                 this.layer.style.height = "100%";
-                var time = didBlur ? 600 : 0;
-                setTimeout(function(){
-                    self.hideAddressBar(0,1);
-                }, time);
             }
         },
-        onResize: function(e) {
+        onResize: function() {
             //avoid infinite loop on iPhone
             if (this.ignoreNextResize_) {
                 //this.log("ignored resize");
@@ -389,7 +380,6 @@
             this.dY = e.touches[0].pageY;
             this.lastTimestamp = e.timeStamp;
             this.lastTouchStartX = this.lastTouchStartY = null;
-
             if ($.os.ios) {
 
                 if (skipTouchEnd === e.touches[0].identifier) {
@@ -430,7 +420,7 @@
 
             // We allow forcing native tap in android devices (required in special cases)
             var forceNativeTap = ($.os.android && e && e.target && e.target.getAttribute && e.target.getAttribute("data-touchlayer") === "ignore");
-
+            
             //if on edit mode, allow all native touches
             //(BB10 must still be prevented, always clicks even after move)
             if (forceNativeTap || (this.isFocused_ && !$.os.blackberry10)) {
@@ -450,7 +440,7 @@
             }
 
             //do not prevent default on chrome.  Chrome >=33 has issues with this
-            if($.os.chrome||$.os.fennec) return;
+            if($.os.chrome||$.os.fennec||$.os.androidICS) return;
             //prevent default if possible
 
             if (!this.isPanning_ && !this.requiresNativeTap) {
@@ -571,9 +561,9 @@
             }
             //non-native scroll devices
 
-            if ((!$.os.blackberry10)) {
+            if ((!$.os.blackberry10&&!this.requiresNativeTap)) {
                 //legacy stuff for old browsers
-                if (!this.isScrolling || !$.feat.nativeTouchScroll)
+                if (!this.isScrolling || (!$.feat.nativeTouchScroll&&!this.requiresNativeTap))
                     e.preventDefault();
                 return;
             }
@@ -589,6 +579,7 @@
                 itMoved = itMoved && !(Math.abs(this.cX) < 10 && Math.abs(this.cY) < 10);
             }
 
+
             //don't allow document scroll unless a specific click demands it further ahead
             if (!$.os.ios || !this.requiresNativeTap) this.allowDocumentScroll_ = false;
 
@@ -599,6 +590,7 @@
 
                 //a generated click
             } else if (!itMoved && !this.requiresNativeTap) {
+
                 this.scrollerIsScrolling = false;
                 if (!this.trackingClick) {
                     return;
