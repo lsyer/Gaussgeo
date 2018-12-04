@@ -1,0 +1,44 @@
+Node version: v0.12.7
+
+Cordova version: 6.1.1
+
+Config.xml file: 
+
+<?xml version='1.0' encoding='utf-8'?>
+<widget id="com.lsy.gaussgeo" version="0.7.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+    <name>GaussGeo</name>
+    <description>
+        A Simple Gauss Geolocation APP, which could provide Gauss Geolocation Coordinate in chinese format(such as BeiJing-54,XiAn-80).
+    </description>
+    <author email="lishao378@sohu.com" href="http://lishao378.blog.sohu.com">
+        lsyer
+    </author>
+    <content src="index.html" />
+    <access origin="*" />
+</widget>
+
+
+Plugins: 
+
+cordova-plugin-compat,cordova-plugin-device,cordova-plugin-dialogs,cordova-plugin-geolocation
+
+Android platform:
+
+Available Android targets:
+----------
+id: 1 or "android-19"
+     Name: Android 4.4.2
+     Type: Platform
+     API level: 19
+     Revision: 3
+     Skins: HVGA, QVGA, WQVGA400, WQVGA432, WSVGA, WVGA800 (default), WVGA854, WXGA720, WXGA800, WXGA800-7in
+ Tag/ABIs : default/armeabi-v7a
+----------
+id: 2 or "android-23"
+     Name: Android 6.0
+     Type: Platform
+     API level: 23
+     Revision: 1
+     Skins: HVGA, QVGA, WQVGA400, WQVGA432, WSVGA, WVGA800 (default), WVGA854, WXGA720, WXGA800, WXGA800-7in
+ Tag/ABIs : no ABIs.
+

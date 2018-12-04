@@ -1,0 +1,18 @@
+{
+    "android": {
+        "debug": {
+            "keystore": "d:/bak/lsy_app_key.keystore",
+            "storePassword": "snbatdij",
+            "alias": "debug_alias",
+            "password" : "snbatdij",
+            "keystoreType": ""
+        },
+        "release": {
+            "keystore": "d:/bak/lsy_app_key.keystore",
+            "storePassword": "snbatdij",
+            "alias": "release_alias",
+            "password" : "snbatdij",
+            "keystoreType": ""
+        }
+    }
+}
