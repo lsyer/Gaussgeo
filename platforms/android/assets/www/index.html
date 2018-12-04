@@ -1,0 +1,86 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <title>坐标定位</title>
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=0">
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<link rel="stylesheet" type="text/css" href="css/icons.css" /> 
+	<link rel="stylesheet" type="text/css" href="css/main.css"  />
+	<link rel="stylesheet" type="text/css" href="css/forms.css"  />
+	<link rel="stylesheet" type="text/css" href="css/lists.css"  />
+	<link rel="stylesheet" type="text/css" href="css/buttons.css"  />
+	
+	<link rel="stylesheet" type="text/css" href="css/ios7.css"  />
+	
+	<script type="text/javascript" charset="utf-8" src="appframework.min.js"></script>  
+	<script type="text/javascript" charset="utf-8" src="af.css3animate.js"></script>
+	<script type="text/javascript" charset="utf-8" src="af.scroller.js"></script>     
+	<script type="text/javascript" charset="utf-8" src="af.touchLayer.js"></script>
+	<script type="text/javascript" charset="utf-8" src="appframework.ui.js"></script>
+	
+	<script type="text/javascript" charset="utf-8" src="cordova.js"></script>
+	<script type="text/javascript" charset="utf-8" src="convertcoord.js"></script>
+	<script type="text/javascript" charset="utf-8" src="encrypt.js"></script>
+	<script type="text/javascript" charset="utf-8" src="main.js"></script>
+
+  </head>
+  <body onLoad="init();">
+        <div id="afui" class="ios7">
+            <!-- this is the splashscreen you see. -->
+            <div id="splashscreen" class='ui-loader heavy'>
+                Geo Location
+                <br>
+                <br>    <span class='ui-icon ui-icon-loading spin'></span>
+                <h1>Starting app</h1>
+            </div>
+            <div id="content">
+                <div title='定    位' id="main" class="panel" selected="true" data-tab="navbar_home">
+                    <h2 class='expanded' onclick='showHide(this,"main_info");'>Welcome</h2>
+                    <p id='main_info'>注意：未注册版本只能执行单次定位！</p>
+                    <ul class="list" id="geoinfo">
+					</ul>
+                    <div class="button-grouped" style="float: right;clear: both;">
+                        <a class="button" onClick="controlGeolocation();" id="geoBtn">开始定位</a>
+                    </div>
+				</div>
+                <!---------------------------------------------->
+                <div title="设    置" id="settingTab" class="panel" data-load="getSetting" data-unload="saveSetting">
+					<div class="input-group">
+						<label for="disMethod">坐标类型</label><select id="disMethod" style="-webkit-appearance: listbox;" onChange="disFixBox();">
+																<option value="0" selected="selected">经纬度坐标</option>
+																<option value="1">54直角坐标</option>
+																<option value="2">80直角坐标</option>
+															</select>
+					</div>
+					<div class="input-group" id="fixNum" style="display:none;">
+                		<label>经度带差</label><input id="ZoneWide" type="checkbox" name="ZoneWide" checked="checked" class="toggle"><label for="ZoneWide" data-on="6°" data-off="3°"><span></span></label><br>
+						<label for="input_x">X校正</label><input  id="input_x" type="text" placeholder="0">
+						<label for="input_y">Y校正</label><input  id="input_y" type="text" placeholder="0">
+					</div>
+				</div>
+                <!---------------------------------------------->
+                <div title="关    于" id="aboutTab" class="panel" data-pull-scroller='true'>
+					<h2 style="text-align:center;">Powered by lsyer, Year 2014.</h2>
+					<div class="input-group">
+						<label for="platform">系统类型</label><input id="platform" type="text" placeholder="Platform">
+						<label for="version">版本号</label><input  id="version" type="text" placeholder="Version">
+						<label for="uuid">设备ID</label><input  id="uuid"  type="text" placeholder="DeviceID">
+						<label for="regcode">注册码</label><input  id="regcode"  type="text" placeholder="Enter your RegCode here">
+						<div id="regBtn" class="button-grouped" style="float: right;clear: both;">
+							<a class="button" onClick="regApp();">注册</a>
+						</div>
+					</div>
+				</div>
+                <!---------------------------------------------->
+			</div>
+            <div id="navbar">
+                <a href="#main" id='navbar_home' class='icon home'>主页</a>
+				<a href="#settingTab" id='navbar_2' class="icon settings">设置</a>
+				<a href="#aboutTab" id='navbar_3' class="icon info">关于</a>
+            </div>
+		</div>
+  </body>
+</html>
