@@ -1,6 +1,12 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="com.lsy.gaussgeo" version="0.5.23" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget id="com.lsy.gaussgeo" version="0.6.3" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <preference name="loglevel" value="DEBUG" />
+    <feature name="Device">
+        <param name="android-package" value="org.apache.cordova.device.Device" />
+    </feature>
+    <feature name="Notification">
+        <param name="android-package" value="org.apache.cordova.dialogs.Notification" />
+    </feature>
     <name>GaussGeo</name>
     <description>
         A Simple Gauss Geolocation APP, which could provide Gauss Geolocation Coordinate in chinese format(such as BeiJing-54,XiAn-80).
@@ -10,10 +16,4 @@
     </author>
     <content src="index.html" />
     <access origin="*" />
-    <feature name="Device">
-        <param name="android-package" value="org.apache.cordova.device.Device" />
-    </feature>
-    <feature name="Notification">
-        <param name="android-package" value="org.apache.cordova.dialogs.Notification" />
-    </feature>
 </widget>

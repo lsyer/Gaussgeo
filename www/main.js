@@ -134,7 +134,62 @@
 			$('#fixNum').attr('style', 'display:block;');
 		}
 	}
-  	
+	
+	function convertGeo(){
+		var tt,lot,lat,xt,yt;
+		if ($('#GaussToL').is(':checked')){
+			if ($('#llFormat').is(':checked')){
+				lot = parseFloat('0' + DegreeConvertBack($('#longitudeT').val()));
+				lat = parseFloat('0' + DegreeConvertBack($('#latitudeT').val()));
+			}else{
+				lot = parseFloat('0' + $('#longitudeT').val());
+				$('#longitudeT').val(lot);
+				lat = parseFloat('0' + $('#latitudeT').val());
+				$('#latitudeT').val(lat);
+			}
+			tt = GaussProjCal(lot, lat, m, c);
+			xt = tt[0] + x;
+			yt = tt[1] + y;
+			$('#xT').val(xt);
+			$('#yT').val(yt);
+		}else{
+			xt = parseFloat('0' + $('#xT').val());
+			$('#xT').val(xt);
+			yt = parseFloat('0' + $('#yT').val());
+			$('#yT').val(yt);
+			tt = GaussProjInvCal(xt, yt, m, c);
+			lot = tt[0];
+			lat = tt[1];
+			if ($('#llFormat').is(':checked')){
+				lot = formatDegree(lot);
+				lat = formatDegree(lat);
+			}
+			$('#longitudeT').val(lot);
+			$('#latitudeT').val(lat);
+		}
+	}
+	
+	function formatDegree(value) {  
+		///<summary>将度转换成为度分秒</summary>
+		value = Math.abs(value);  
+		var v1 = Math.floor(value);//度  
+		var v2 = Math.floor((value - v1) * 60);//分  
+		var v3 = Math.round((value - v1) * 3600 % 60);//秒
+		
+		return v1 + '.' + v2 + '.' + v3;  
+	}
+	//alert(formatDegree("22.235678"));
+	  
+	function DegreeConvertBack(value) {
+		///<summary>度分秒转换成为度</summary>
+		var ss = value.split(".");
+		var du = ss[0];
+		var fen = ss[1];
+		var miao = ss[2];
+	
+		return Math.abs(du) + Math.abs(fen)/60 + Math.abs(miao)/3600;  
+	}
+
 	function init(){
 		document.addEventListener("deviceready", deviceInfo, true);	
 		document.addEventListener("backbutton", onBackKeyDown, false);

@@ -62,6 +62,21 @@
 					</div>
 				</div>
                 <!---------------------------------------------->
+                <div title="工 具 箱" id="toolsTab" class="panel" data-pull-scroller='true'>
+					<div class="input-group">
+						<h2 class='expanded' style="text-align:center;" onclick='showHide(this,"convertTool");'>1. 地理坐标与高斯坐标转换</h2>
+						<div id="convertTool">
+							<label>方向(<a onClick="navigator.notification.alert('正向为地理转高斯，反向为高斯转地理。');">说明</a>)</label><input id="GaussToL" type="checkbox" name="GaussToL" checked="checked" class="toggle"><label for="GaussToL" data-on="正向" data-off="反向"><span></span></label><br style="clear:both;">
+							<label>格式(<a onClick="navigator.notification.alert('点分:118.35.35/26.54.54\n小数:118.369702/26.803542');">示例</a>)</label><input id="llFormat" type="checkbox" name="llFormat" checked="checked" class="toggle"><label for="llFormat" data-on="点分" data-off="小数"><span></span></label><br style="clear:both;">
+							<label for="longitudeT">经度</label><input  id="longitudeT" type="text" placeholder="0">
+							<label for="latitudeT">纬度</label><input  id="latitudeT" type="text" placeholder="0">
+							<label for="xT">X: </label><input  id="xT" type="text" placeholder="0">
+							<label for="yT">Y: </label><input  id="yT" type="text" placeholder="0">
+							<label for="convert"> </label><a id="convert" class="button" onClick="convertGeo();">转&nbsp;&nbsp;&nbsp;换</a>
+						</div>
+					</div>
+				</div>
+                <!---------------------------------------------->
                 <div title="关    于" id="aboutTab" class="panel" data-pull-scroller='true'>
 					<h2 style="text-align:center;">Powered by lsyer, Year 2014.</h2>
 					<div class="input-group">
@@ -79,6 +94,7 @@
             <div id="navbar">
                 <a href="#main" id='navbar_home' class='icon home'>主页</a>
 				<a href="#settingTab" id='navbar_2' class="icon settings">设置</a>
+				<a href="#toolsTab" id='navbar_2' class="icon target">工具箱</a>
 				<a href="#aboutTab" id='navbar_3' class="icon info">关于</a>
             </div>
 		</div>
