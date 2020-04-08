@@ -1,0 +1,75 @@
+# remove extension less files
+*
+!/**/
+!*.*
+
+# intermediate files
+node_modules/
+build/
+obj/
+Debug/
+bin/
+package-lock.json
+.vs
+.gradle
+.idea
+*.exe
+*.apk
+
+# Cordova - platforms
+platforms
+
+# Cordova - plugins - remove all except json & xml
+plugins/**/.DS_Store
+plugins/**/*.cs
+plugins/**/*.h
+plugins/**/*.java
+plugins/**/*.js
+plugins/**/*.m
+plugins/**/*.map
+plugins/**/*.md
+plugins/**/*.modulemap
+plugins/**/*.ts
+plugins/**/LICENSE
+plugins/**/NOTICE
+plugins/**/*.gradle
+plugins/**/tests/
+
+# res
+**/resources/signing
+
+# project specific
+build.json
+yoxviot.keystore
+www/static/
+www/index.html
+
+# Mac
+.DS_Store
+
+# iOS
+platforms/ios/build/
+platforms/ios/www/
+platforms/ios/cordova/console.log
+*.xcuserdatad
+
+# android
+platforms/android/assets/www
+platforms/android/bin
+platforms/android/gen
+platforms/android/local.properties
+platforms/android/ant-build
+platforms/android/ant-gen
+platforms/android/CordovaLib/ant-build
+platforms/android/CordovaLib/ant-gen
+platforms/android/CordovaLib/bin
+platforms/android/CordovaLib/gen
+platforms/android/CordovaLib/local.properties
+
+# wp8
+platforms/wp8/bin
+platforms/wp8/obj
+platforms/wp8/www
+platforms/wp8/.staging
+platforms/wp8/*.suo
+platforms/wp8/*.csproj.user
