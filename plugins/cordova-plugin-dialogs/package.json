@@ -1,50 +1,82 @@
 {
-  "name": "cordova-plugin-dialogs",
-  "version": "1.2.1",
-  "description": "Cordova Notification Plugin",
+  "_from": "cordova-plugin-dialogs",
+  "_id": "cordova-plugin-dialogs@2.0.2",
+  "_inBundle": false,
+  "_integrity": "sha1-rDzotzvIhf+EcHjVtTPnpO1Bii8=",
+  "_location": "/cordova-plugin-dialogs",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "tag",
+    "registry": true,
+    "raw": "cordova-plugin-dialogs",
+    "name": "cordova-plugin-dialogs",
+    "escapedName": "cordova-plugin-dialogs",
+    "rawSpec": "",
+    "saveSpec": null,
+    "fetchSpec": "latest"
+  },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "https://r.cnpmjs.org/cordova-plugin-dialogs/download/cordova-plugin-dialogs-2.0.2.tgz",
+  "_shasum": "ac3ce8b73bc885ff847078d5b533e7a4ed418a2f",
+  "_spec": "cordova-plugin-dialogs",
+  "_where": "/opt/allcodes/MyOpensourceProjects/Gaussgeo",
+  "author": {
+    "name": "Apache Software Foundation"
+  },
+  "bugs": {
+    "url": "https://github.com/apache/cordova-plugin-dialogs/issues"
+  },
+  "bundleDependencies": false,
   "cordova": {
     "id": "cordova-plugin-dialogs",
     "platforms": [
-      "firefoxos",
       "android",
       "browser",
-      "amazon-fireos",
-      "ubuntu",
       "ios",
-      "blackberry10",
-      "wp7",
-      "wp8",
-      "windows8",
       "windows"
     ]
   },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/apache/cordova-plugin-dialogs"
+  "deprecated": false,
+  "description": "Cordova Notification Plugin",
+  "devDependencies": {
+    "eslint": "^3.19.0",
+    "eslint-config-semistandard": "^11.0.0",
+    "eslint-config-standard": "^10.2.1",
+    "eslint-plugin-import": "^2.3.0",
+    "eslint-plugin-node": "^5.0.0",
+    "eslint-plugin-promise": "^3.5.0",
+    "eslint-plugin-standard": "^3.0.1"
   },
+  "engines": {
+    "cordovaDependencies": {
+      "3.0.0": {
+        "cordova": ">100"
+      }
+    }
+  },
+  "homepage": "https://github.com/apache/cordova-plugin-dialogs#readme",
   "keywords": [
     "cordova",
     "notification",
     "ecosystem:cordova",
-    "cordova-firefoxos",
     "cordova-android",
     "cordova-browser",
-    "cordova-amazon-fireos",
-    "cordova-ubuntu",
     "cordova-ios",
-    "cordova-blackberry10",
-    "cordova-wp7",
-    "cordova-wp8",
-    "cordova-windows8",
     "cordova-windows"
   ],
-  "scripts": {
-    "test": "npm run jshint",
-    "jshint": "node node_modules/jshint/bin/jshint www && node node_modules/jshint/bin/jshint src && node node_modules/jshint/bin/jshint tests"
-  },
-  "author": "Apache Software Foundation",
   "license": "Apache-2.0",
-  "devDependencies": {
-    "jshint": "^2.6.0"
-  }
+  "name": "cordova-plugin-dialogs",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/apache/cordova-plugin-dialogs.git"
+  },
+  "scripts": {
+    "eslint": "node node_modules/eslint/bin/eslint www && node node_modules/eslint/bin/eslint src && node node_modules/eslint/bin/eslint tests",
+    "test": "npm run eslint"
+  },
+  "types": "./types/index.d.ts",
+  "version": "2.0.2"
 }

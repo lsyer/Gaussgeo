@@ -1,17 +1,17 @@
 {
     "android": {
         "debug": {
-            "keystore": "d:/bak/lsy_app_key.keystore",
-            "storePassword": "snbatdij",
-            "alias": "debug_alias",
-            "password" : "snbatdij",
+            "keystore": "./yoxviot.keystore",
+            "alias": "yoxviot.keystore",
+            "storePassword": "net612",
+            "password": "net612",
             "keystoreType": ""
         },
         "release": {
-            "keystore": "d:/bak/lsy_app_key.keystore",
-            "storePassword": "snbatdij",
-            "alias": "release_alias",
-            "password" : "snbatdij",
+            "keystore": "./yoxviot.keystore",
+            "alias": "yoxviot.keystore",
+            "storePassword": "net612",
+            "password": "net612",
             "keystoreType": ""
         }
     }

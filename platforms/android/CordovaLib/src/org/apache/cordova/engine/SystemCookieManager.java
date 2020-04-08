@@ -37,6 +37,9 @@ class SystemCookieManager implements ICordovaCookieManager {
         webView = webview;
         cookieManager = CookieManager.getInstance();
 
+        //REALLY? Nobody has seen this UNTIL NOW?
+        cookieManager.setAcceptFileSchemeCookies(true);
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             cookieManager.setAcceptThirdPartyCookies(webView, true);
         }
@@ -54,8 +57,13 @@ class SystemCookieManager implements ICordovaCookieManager {
         return cookieManager.getCookie(url);
     }
 
+    @SuppressWarnings("deprecation")
     public void clearCookies() {
-        cookieManager.removeAllCookie();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            cookieManager.removeAllCookies(null);
+        } else {
+            cookieManager.removeAllCookie();
+        }
     }
 
     public void flush() {

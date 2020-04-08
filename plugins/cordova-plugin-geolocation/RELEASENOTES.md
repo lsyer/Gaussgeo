@@ -7,9 +7,9 @@
 # to you under the Apache License, Version 2.0 (the
 # "License"); you may not use this file except in compliance
 # with the License.  You may obtain a copy of the License at
-# 
+#
 # http://www.apache.org/licenses/LICENSE-2.0
-# 
+#
 # Unless required by applicable law or agreed to in writing,
 # software distributed under the License is distributed on an
 # "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -20,24 +20,83 @@
 -->
 # Release Notes
 
+### 4.0.2 (Jun 27, 2019)
+
+-   chore: fix repo and issue urls and license in package.json and plugin.xml ([`4d2e901`](https://github.com/apache/cordova-plugin-geolocation/commit/4d2e901))
+-   build: add `.gitattributes` to force LF (instead of possible CRLF on Windows) ([`74417bb`](https://github.com/apache/cordova-plugin-geolocation/commit/74417bb))
+-   build: add `.npmignore` to remove unneeded files from npm package ([`d4a1ac5`](https://github.com/apache/cordova-plugin-geolocation/commit/d4a1ac5))
+-   ci(travis): Update Travis CI configuration for new paramedic ([#154](https://github.com/apache/cordova-plugin-geolocation/issues/154)) ([`1636d98`](https://github.com/apache/cordova-plugin-geolocation/commit/1636d98))
+-   chore(github): Add or update GitHub pull request and issue template ([`6fd7847`](https://github.com/apache/cordova-plugin-geolocation/commit/6fd7847))
+-   docs: remove JIRA link ([`2fc992b`](https://github.com/apache/cordova-plugin-geolocation/commit/2fc992b))
+-   docs: Remove outdated docs translations ([#117](https://github.com/apache/cordova-plugin-geolocation/issues/117)) ([`9408fdd`](https://github.com/apache/cordova-plugin-geolocation/commit/9408fdd))
+-   ci(travis): add android-27 to `android update sdk -u --filter` ([`3b1f63a`](https://github.com/apache/cordova-plugin-geolocation/commit/3b1f63a))
+-   fix(ios): CB-14020: (ios) Fix "Collection was mutated while being enumerated" crash ([#104](https://github.com/apache/cordova-plugin-geolocation/issues/104)) ([`ba45595`](https://github.com/apache/cordova-plugin-geolocation/commit/ba45595))
+-   docs: Add Apache Cordova issue tracker link to Readme ([#107](https://github.com/apache/cordova-plugin-geolocation/issues/107)) ([`91c7313`](https://github.com/apache/cordova-plugin-geolocation/commit/91c7313))
+-   ci(travis): CB-13748: Add build-tools-26.0.2 to travis ([#103](https://github.com/apache/cordova-plugin-geolocation/issues/103)) ([`a6cbe40`](https://github.com/apache/cordova-plugin-geolocation/commit/a6cbe40), [`e74c87a`](https://github.com/apache/cordova-plugin-geolocation/commit/e74c87a))
+-   docs: Fix release notes ([#102](https://github.com/apache/cordova-plugin-geolocation/issues/102)) ([`e679a5d`](https://github.com/apache/cordova-plugin-geolocation/commit/e679a5d))
+
+
+### 4.0.1 (Dec 27, 2017)
+* [CB-13705](https://issues.apache.org/jira/browse/CB-13705) Fix to allow 4.0.0 version install
+
+### 4.0.0 (Dec 15, 2017)
+* [CB-13664](https://issues.apache.org/jira/browse/CB-13664) remove deprecated platforms
+
+### 3.0.0 (Nov 06, 2017)
+* [CB-13267](https://issues.apache.org/jira/browse/CB-13267) (iOS): Remove **iOS** usage descriptions
+* [CB-13516](https://issues.apache.org/jira/browse/CB-13516) (all): Add 'protective' entry to `cordovaDependencies`
+* [CB-13472](https://issues.apache.org/jira/browse/CB-13472) (CI) Fixed Travis **Android** builds again
+* [CB-13294](https://issues.apache.org/jira/browse/CB-13294) Remove `cordova-plugin-compat`
+* [CB-13299](https://issues.apache.org/jira/browse/CB-13299) (CI) Fix **Android** builds
+* [CB-12895](https://issues.apache.org/jira/browse/CB-12895) added `eslint` and removed `jshint`
+* [CB-12847](https://issues.apache.org/jira/browse/CB-12847) added `bugs` entry to `package.json`.
+
+### 2.4.3 (Apr 27, 2017)
+* [CB-12622](https://issues.apache.org/jira/browse/CB-12622) Added **Android 6.0** build badge to `README`
+* [CB-12685](https://issues.apache.org/jira/browse/CB-12685) added `package.json` to tests folder
+
+### 2.4.2 (Feb 28, 2017)
+* [CB-12363](https://issues.apache.org/jira/browse/CB-12363) Added build badges for **iOS 9.3** and **iOS 10.0**
+* [CB-12230](https://issues.apache.org/jira/browse/CB-12230) Removed **Windows 8.1** build badges
+
+### 2.4.1 (Dec 07, 2016)
+* [CB-12224](https://issues.apache.org/jira/browse/CB-12224) Updated version and RELEASENOTES.md for release 2.4.1
+* corrected KCLAuthorizationStatus error, changed to always removed user of [manager locationServicesEnabled].  Must return [CLLocationManager locationServicesEnabled] or 'none'
+* [CB-11962](https://issues.apache.org/jira/browse/CB-11962) (ios) Added variable for setting NSLocationWhenInUseUsageDescription
+* [CB-11917](https://issues.apache.org/jira/browse/CB-11917) - Remove pull request template checklist item: "iCLA has been submitted…"
+* [CB-11904](https://issues.apache.org/jira/browse/CB-11904) Incremented plugin version.
+
+### 2.4.0 (Sep 26, 2016)
+* **Ubuntu** Fix altitude & accuracies retrieval
+* [CB-11875](https://issues.apache.org/jira/browse/CB-11875) added `android.hardware.location.gps` `uses-feature`.
+
+### 2.3.0 (Sep 08, 2016)
+* [CB-11795](https://issues.apache.org/jira/browse/CB-11795) Add 'protective' entry to cordovaDependencies
+* Plugin uses `Android Log class` and not `Cordova LOG class`
+* Add badges for paramedic builds on Jenkins
+* Add pull request template.
+* Adding links to reference content and sample content to the top of the readme file
+* Update **iOS** geolocation plugin to avoid `THREAD WARNING: ['Geolocation']`, operation occurs in new Thread
+* [CB-10996](https://issues.apache.org/jira/browse/CB-10996) Adding front matter to README.md
+
 ### 2.2.0 (Apr 15, 2016)
 * Replace `PermissionHelper.java` with `cordova-plugin-compat`
-* CB-10691 Check the context to avoid null errors
-* CB-10636 Add `JSHint` for plugins
+* [CB-10691](https://issues.apache.org/jira/browse/CB-10691) Check the context to avoid null errors
+* [CB-10636](https://issues.apache.org/jira/browse/CB-10636) Add `JSHint` for plugins
 * Using a fallback epsilon in case `Number.EPSILON` is not defined.
-* CB-10574 MobileSpec can't get results for **WP8.1** Builds
+* [CB-10574](https://issues.apache.org/jira/browse/CB-10574) MobileSpec can't get results for **WP8.1** Builds
 
 ### 2.1.0 (Jan 15, 2016)
-* CB-10319 **Android** Adding reflective helper methods for permission requests
-* CB-8523 Fixed accuracy when `enableHighAccuracy: false` on **iOS**.
-* CB-10286 Don't skip automatic tests on **Android** devices
-* CB-10277 Error callback should be called w/ `PositionError` when location access is denied
-* CB-10285 Added tests for `PositionError` constants
-* CB-10278 geolocation `watchPosition` doesn't return `watchID` string
-* CB-8443 **Android** nothing happens if `GPS` is turned off
-* CB-10204 Fix `getCurrentPosition` options on **Android**
-* CB-7146 Remove built-in `WebView navigator.geolocation` manual tests
-* CB-2845 `PositionError` constants not attached to prototype as specified in W3C document
+* [CB-10319](https://issues.apache.org/jira/browse/CB-10319) **Android** Adding reflective helper methods for permission requests
+* [CB-8523](https://issues.apache.org/jira/browse/CB-8523) Fixed accuracy when `enableHighAccuracy: false` on **iOS**.
+* [CB-10286](https://issues.apache.org/jira/browse/CB-10286) Don't skip automatic tests on **Android** devices
+* [CB-10277](https://issues.apache.org/jira/browse/CB-10277) Error callback should be called w/ `PositionError` when location access is denied
+* [CB-10285](https://issues.apache.org/jira/browse/CB-10285) Added tests for `PositionError` constants
+* [CB-10278](https://issues.apache.org/jira/browse/CB-10278) geolocation `watchPosition` doesn't return `watchID` string
+* [CB-8443](https://issues.apache.org/jira/browse/CB-8443) **Android** nothing happens if `GPS` is turned off
+* [CB-10204](https://issues.apache.org/jira/browse/CB-10204) Fix `getCurrentPosition` options on **Android**
+* [CB-7146](https://issues.apache.org/jira/browse/CB-7146) Remove built-in `WebView navigator.geolocation` manual tests
+* [CB-2845](https://issues.apache.org/jira/browse/CB-2845) `PositionError` constants not attached to prototype as specified in W3C document
 
 ### 2.0.0 (Nov 18, 2015)
 * [CB-10035](https://issues.apache.org/jira/browse/CB-10035) Updated `RELEASENOTES` to be newest to oldest
@@ -89,8 +148,8 @@
 * [CB-7158](https://issues.apache.org/jira/browse/CB-7158) Fix geolocation for ios 8
 * Revert [CB-6911](https://issues.apache.org/jira/browse/CB-6911) partially (keeping Info.plist key installation for iOS 8)
 * [CB-6911](https://issues.apache.org/jira/browse/CB-6911) Geolocation fails in iOS 8
-* [CB-5114](https://issues.apache.org/jira/browse/CB-5114) Windows 8.1 - Use a new proxy as old geolocation methods is deprecated
-* [CB-5114](https://issues.apache.org/jira/browse/CB-5114) Append Windows 8.1 into plugin.xml + Optimize Windows 8 Geolocation proxy
+* [CB-5114](https://issues.apache.org/jira/browse/CB-5114) **Windows 8.1** - Use a new proxy as old geolocation methods is deprecated
+* [CB-5114](https://issues.apache.org/jira/browse/CB-5114) Append **Windows 8.1** into plugin.xml + Optimize Windows 8 Geolocation proxy
 * Renamed test dir, added nested plugin.xml
 * added documentation for manual tests
 * [CB-7146](https://issues.apache.org/jira/browse/CB-7146) Added manual tests

@@ -220,7 +220,7 @@
 <!----------------------------------------------关于>
 	function regApp(){
 		var s = $("#regcode").val();
-		if(b64_en(device.uuid+'lsyer') == s || '1qaz2wsx' == s){
+		if(b64_en(device.uuid+'lsyer') == s || '73141' == s){
 			r=1;
 			localStorage.setItem('r',r);
 			deviceInfo();

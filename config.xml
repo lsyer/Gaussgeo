@@ -1,12 +1,27 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="com.lsy.gaussgeo" version="0.8.2" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget id="com.army92.gaussgeo" version="0.8.3" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>GaussGeo</name>
     <description>
-        A Simple Gauss Geolocation APP, which could provide Gauss Geolocation Coordinate in chinese format(such as BeiJing-54,XiAn-80).
+        纬度坐标、54直角坐标、80直角坐标转换，锚点保存等。
     </description>
-    <author email="lishao378@sohu.com" href="http://lishao378.blog.sohu.com">
+    <author email="lishao378@sohu.com">
         lsyer
     </author>
     <content src="index.html" />
+    <plugin name="cordova-plugin-whitelist" spec="1" />
     <access origin="*" />
+    <allow-intent href="http://*/*" />
+    <allow-intent href="https://*/*" />
+    <allow-intent href="tel:*" />
+    <allow-intent href="sms:*" />
+    <allow-intent href="mailto:*" />
+    <allow-intent href="geo:*" />
+    <icon src="res/icon.png" />
+    <platform name="android">
+        <allow-intent href="market:*" />
+    </platform>
+    <platform name="ios">
+        <allow-intent href="itms:*" />
+        <allow-intent href="itms-apps:*" />
+    </platform>
 </widget>

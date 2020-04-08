@@ -1,0 +1,64 @@
+{
+  "_from": "cordova-plugin-clipboard",
+  "_id": "cordova-plugin-clipboard@1.0.0",
+  "_inBundle": false,
+  "_integrity": "sha1-j32zYgDAbOTP9POcfullndY4asU=",
+  "_location": "/cordova-plugin-clipboard",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "tag",
+    "registry": true,
+    "raw": "cordova-plugin-clipboard",
+    "name": "cordova-plugin-clipboard",
+    "escapedName": "cordova-plugin-clipboard",
+    "rawSpec": "",
+    "saveSpec": null,
+    "fetchSpec": "latest"
+  },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "https://r.cnpmjs.org/cordova-plugin-clipboard/download/cordova-plugin-clipboard-1.0.0.tgz",
+  "_shasum": "8f7db36200c06ce4cff4f39c7ee9659dd6386ac5",
+  "_spec": "cordova-plugin-clipboard",
+  "_where": "/opt/allcodes/MyOpensourceProjects/Gaussgeo",
+  "author": {
+    "name": "Merrick Zhang"
+  },
+  "bugs": {
+    "url": "https://github.com/blackberry/WebWorks-Community-APIs/issues"
+  },
+  "bundleDependencies": false,
+  "cordova": {
+    "id": "cordova-plugin-clipboard",
+    "platforms": [
+      "blackberry10"
+    ]
+  },
+  "deprecated": false,
+  "description": "BlackBerry 10 Community Contributed API to access the system clipboard",
+  "engines": [
+    {
+      "name": "cordova",
+      "version": ">=3.0"
+    }
+  ],
+  "homepage": "https://github.com/blackberry/WebWorks-Community-APIs/tree/master/BB10-Cordova/Clipboard#readme",
+  "keywords": [
+    "blackberry",
+    "clipboard",
+    "copy",
+    "paste",
+    "cordova",
+    "ecosystem:cordova",
+    "cordova-blackberry10"
+  ],
+  "license": "Apache 2.0",
+  "name": "cordova-plugin-clipboard",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/blackberry/WebWorks-Community-APIs.git"
+  },
+  "version": "1.0.0"
+}

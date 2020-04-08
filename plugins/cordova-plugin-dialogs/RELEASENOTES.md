@@ -7,9 +7,9 @@
 # to you under the Apache License, Version 2.0 (the
 # "License"); you may not use this file except in compliance
 # with the License.  You may obtain a copy of the License at
-# 
+#
 # http://www.apache.org/licenses/LICENSE-2.0
-# 
+#
 # Unless required by applicable law or agreed to in writing,
 # software distributed under the License is distributed on an
 # "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -20,11 +20,76 @@
 -->
 # Release Notes
 
+### 2.0.2 (Jun 18, 2019)
+
+-   build: add .npmignore to remove unneeded files from npm package ([`91513f1`](https://github.com/apache/cordova-plugin-dialogs/commit/91513f1))
+-   build: add .gitattributes to force LF (instead of possible CRLF on Windows) ([`d4e8607`](https://github.com/apache/cordova-plugin-dialogs/commit/d4e8607))
+-   docs(android): mention 2 lines content limit ([#125](https://github.com/apache/cordova-plugin-dialogs/issues/125)) ([`292e13a`](https://github.com/apache/cordova-plugin-dialogs/commit/292e13a))
+-   ci(travis): Update Travis CI configuration for new paramedic ([#127](https://github.com/apache/cordova-plugin-dialogs/issues/127)) ([`f6e4165`](https://github.com/apache/cordova-plugin-dialogs/commit/f6e4165))
+-   refactor(android): Cleanup Dialog plugin code ([#123](https://github.com/apache/cordova-plugin-dialogs/issues/123)) ([`419a838`](https://github.com/apache/cordova-plugin-dialogs/commit/419a838))
+-   chore(github) Add or update GitHub pull request and issue template ([`d5f09ce`](https://github.com/apache/cordova-plugin-dialogs/commit/d5f09ce))
+-   refactor: Cleanup: remove trailing whitespace ([#120](https://github.com/apache/cordova-plugin-dialogs/issues/120)) ([`ed0e465`](https://github.com/apache/cordova-plugin-dialogs/commit/ed0e465))
+-   docs: remove JIRA link ([`0057715`](https://github.com/apache/cordova-plugin-dialogs/commit/0057715))
+-   docs: Remove docs translations ([#107](https://github.com/apache/cordova-plugin-dialogs/issues/107)) ([`b87526e`](https://github.com/apache/cordova-plugin-dialogs/commit/b87526e))
+-   ci(travis): also accept terms for android sdk `android-27` ([#102](https://github.com/apache/cordova-plugin-dialogs/issues/102)) ([`6d88a8c`](https://github.com/apache/cordova-plugin-dialogs/commit/6d88a8c), [`2bc54cf`](https://github.com/apache/cordova-plugin-dialogs/commit/2bc54cf))
+-   ci(travis): CB-13756: Add build-tools-26.0.2 to travis ([`ef89d9f`](https://github.com/apache/cordova-plugin-dialogs/commit/ef89d9f))
+-   chore(release): Fix release notes ([#101](https://github.com/apache/cordova-plugin-dialogs/issues/101)) ([`c24c733`](https://github.com/apache/cordova-plugin-dialogs/commit/c24c733))
+
+### 2.0.1 (Dec 27, 2017)
+* [CB-13703](https://issues.apache.org/jira/browse/CB-13703) Fix to allow 2.0.0 version install
+
+### 2.0.0 (Dec 15, 2017)
+* [CB-13671](https://issues.apache.org/jira/browse/CB-13671) Remove deprecated platforms
+* [CB-13555](https://issues.apache.org/jira/browse/CB-13555) (ios) Present notification view controller by `InAppBrowser` view controller (#98)
+
+### 1.3.4 (Nov 06, 2017)
+* [CB-13473](https://issues.apache.org/jira/browse/CB-13473) (CI) Removed **Browser** builds from AppVeyor
+* [CB-13472](https://issues.apache.org/jira/browse/CB-13472) (CI) Fixed Travis **Android** builds again
+* [CB-12895](https://issues.apache.org/jira/browse/CB-12895) setup `eslint` and removed `jshint`
+* [CB-13028](https://issues.apache.org/jira/browse/CB-13028) (CI) **Browser** builds on Travis and AppVeyor
+* [CB-4615](https://issues.apache.org/jira/browse/CB-4615) document **Android** quirk around maximum number of button labels supported for the `confirm` method.
+* [CB-13000](https://issues.apache.org/jira/browse/CB-13000) (CI) Speed up **Android** builds
+* [CB-12847](https://issues.apache.org/jira/browse/CB-12847) added `bugs` entry to `package.json`.
+
+### 1.3.3 (Apr 27, 2017)
+* [CB-12622](https://issues.apache.org/jira/browse/CB-12622) Added **Android 6.0** build badge to `README`
+* [CB-12685](https://issues.apache.org/jira/browse/CB-12685) added `package.json` to tests folder
+
+### 1.3.2 (Feb 28, 2017)
+* [CB-12353](https://issues.apache.org/jira/browse/CB-12353) Corrected merges usage in `plugin.xml`
+* [CB-12369](https://issues.apache.org/jira/browse/CB-12369) Add plugin typings from `DefinitelyTyped`
+* [CB-12363](https://issues.apache.org/jira/browse/CB-12363) Added build badges for **iOS 9.3** and **iOS 10.0**
+* [CB-12230](https://issues.apache.org/jira/browse/CB-12230) Removed **Windows 8.1** build badges
+
+### 1.3.1 (Dec 07, 2016)
+* [CB-12224](https://issues.apache.org/jira/browse/CB-12224) Updated version and RELEASENOTES.md for release 1.3.1
+* [CB-11917](https://issues.apache.org/jira/browse/CB-11917) - Remove pull request template checklist item: "iCLA has been submitted…"
+* Replace empty buttonLabel with 'OK'
+* Make sure the alert buttonLabel is a string
+* Add enter key handling and map to default button.
+* Added test for [windows] [CB-11281](https://issues.apache.org/jira/browse/CB-11281) when called without defaultText
+* [CB-11832](https://issues.apache.org/jira/browse/CB-11832) Incremented plugin version.
+
+### 1.3.0 (Sep 08, 2016)
+* [CB-11832](https://issues.apache.org/jira/browse/CB-11832) updated missing header file
+* Select the text and put default value in the input directly.
+* [CB-11281](https://issues.apache.org/jira/browse/CB-11281) **windows**: `defaultText` is not taken as input if no input by user fixed
+* Separated `CSS` from `JS` code. Fixed the prompt dialog CSS to look close to native. Fixed the positioning of the prompt dialog for Windows. Fixed minor JSHint issues.
+* [CB-11795](https://issues.apache.org/jira/browse/CB-11795) Add 'protective' entry to cordovaDependencies
+* [CB-8773](https://issues.apache.org/jira/browse/CB-8773) Fix for **iOS 8** keyboard not appearing on prompt
+* [CB-11677](https://issues.apache.org/jira/browse/CB-11677) **Android**: made text, entered to prompt dialog visible
+* CB-8947:(**ios**) Fix crash. Convert non-string messages to strings. Added tests.
+* Add badges for paramedic builds on Jenkins
+* Add pull request template.
+* [CB-11218](https://issues.apache.org/jira/browse/CB-11218) Convert button list to appropriate type
+* Simply add **Browser** to supported platforms
+* [CB-10996](https://issues.apache.org/jira/browse/CB-10996) Adding front matter to README.md
+
 ### 1.2.1 (Apr 15, 2016)
-* CB-10097 dialog doesn't show on **iOS** when called from a select list `onChange` event
+* [CB-10097](https://issues.apache.org/jira/browse/CB-10097) dialog doesn't show on **iOS** when called from a select list `onChange` event
 * Remove `warning` emoji, as it doesn't correctly display in the docs website: http://cordova.apache.org/docs/en/dev/cordova-plugin-dialogs/index.html
-* CB-10727 Dialogs plugin has warnings on **iOS**
-* CB-10636 Add `JSHint` for plugins
+* [CB-10727](https://issues.apache.org/jira/browse/CB-10727) Dialogs plugin has warnings on **iOS**
+* [CB-10636](https://issues.apache.org/jira/browse/CB-10636) Add `JSHint` for plugins
 
 ### 1.2.0 (Nov 18, 2015)
 * [CB-10035](https://issues.apache.org/jira/browse/CB-10035) Updated `RELEASENOTES` to be newest to oldest

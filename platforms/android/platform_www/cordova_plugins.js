@@ -1,54 +1,57 @@
 cordova.define('cordova/plugin_list', function(require, exports, module) {
-module.exports = [
+  module.exports = [
     {
-        "file": "plugins/cordova-plugin-device/www/device.js",
-        "id": "cordova-plugin-device.device",
-        "clobbers": [
-            "device"
-        ]
+      "id": "cordova-plugin-geolocation.geolocation",
+      "file": "plugins/cordova-plugin-geolocation/www/android/geolocation.js",
+      "pluginId": "cordova-plugin-geolocation",
+      "clobbers": [
+        "navigator.geolocation"
+      ]
     },
     {
-        "file": "plugins/cordova-plugin-dialogs/www/notification.js",
-        "id": "cordova-plugin-dialogs.notification",
-        "merges": [
-            "navigator.notification"
-        ]
+      "id": "cordova-plugin-geolocation.PositionError",
+      "file": "plugins/cordova-plugin-geolocation/www/PositionError.js",
+      "pluginId": "cordova-plugin-geolocation",
+      "runs": true
     },
     {
-        "file": "plugins/cordova-plugin-dialogs/www/android/notification.js",
-        "id": "cordova-plugin-dialogs.notification_android",
-        "merges": [
-            "navigator.notification"
-        ]
+      "id": "cordova-plugin-device.device",
+      "file": "plugins/cordova-plugin-device/www/device.js",
+      "pluginId": "cordova-plugin-device",
+      "clobbers": [
+        "device"
+      ]
     },
     {
-        "file": "plugins/cordova-plugin-geolocation/www/android/geolocation.js",
-        "id": "cordova-plugin-geolocation.geolocation",
-        "clobbers": [
-            "navigator.geolocation"
-        ]
+      "id": "cordova-plugin-dialogs.notification",
+      "file": "plugins/cordova-plugin-dialogs/www/notification.js",
+      "pluginId": "cordova-plugin-dialogs",
+      "merges": [
+        "navigator.notification"
+      ]
     },
     {
-        "file": "plugins/cordova-plugin-geolocation/www/PositionError.js",
-        "id": "cordova-plugin-geolocation.PositionError",
-        "runs": true
+      "id": "cordova-plugin-dialogs.notification_android",
+      "file": "plugins/cordova-plugin-dialogs/www/android/notification.js",
+      "pluginId": "cordova-plugin-dialogs",
+      "merges": [
+        "navigator.notification"
+      ]
     },
     {
-        "file": "plugins/cordova-universal-clipboard/www/clipboard.js",
-        "id": "cordova-universal-clipboard.Clipboard",
-        "clobbers": [
-            "cordova.plugins.clipboard"
-        ]
+      "id": "cordova-plugin-clipboard.client",
+      "file": "plugins/cordova-plugin-clipboard/www/client.js",
+      "pluginId": "cordova-plugin-clipboard",
+      "clobbers": [
+        "community.clipboard"
+      ]
     }
-];
-module.exports.metadata = 
-// TOP OF METADATA
-{
-    "cordova-plugin-compat": "1.0.0",
-    "cordova-plugin-device": "1.1.2",
-    "cordova-plugin-dialogs": "1.2.1",
-    "cordova-plugin-geolocation": "2.2.0",
-    "cordova-universal-clipboard": "0.1.0"
-};
-// BOTTOM OF METADATA
+  ];
+  module.exports.metadata = {
+    "cordova-plugin-whitelist": "1.3.4",
+    "cordova-plugin-geolocation": "4.0.2",
+    "cordova-plugin-device": "2.0.3",
+    "cordova-plugin-dialogs": "2.0.2",
+    "cordova-plugin-clipboard": "1.0.0"
+  };
 });

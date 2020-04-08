@@ -19,12 +19,14 @@
 
 package org.apache.cordova;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
+import android.util.Pair;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -42,8 +44,8 @@ public class CordovaInterfaceImpl implements CordovaInterface {
     protected PluginManager pluginManager;
 
     protected ActivityResultHolder savedResult;
+    protected CallbackMap permissionResultCallbacks;
     protected CordovaPlugin activityResultCallback;
-    protected CordovaPlugin permissionResultCallback;
     protected String initCallbackService;
     protected int activityResultRequestCode;
     protected boolean activityWasDestroyed = false;
@@ -56,6 +58,7 @@ public class CordovaInterfaceImpl implements CordovaInterface {
     public CordovaInterfaceImpl(Activity activity, ExecutorService threadPool) {
         this.activity = activity;
         this.threadPool = threadPool;
+        this.permissionResultCallbacks = new CallbackMap();
     }
 
     @Override
@@ -80,6 +83,11 @@ public class CordovaInterfaceImpl implements CordovaInterface {
 
     @Override
     public Activity getActivity() {
+        return activity;
+    }
+
+    @Override
+    public Context getContext() {
         return activity;
     }
 
@@ -145,13 +153,13 @@ public class CordovaInterfaceImpl implements CordovaInterface {
         activityResultCallback = null;
 
         if (callback != null) {
-            Log.d(TAG, "Sending activity result to plugin");
+            LOG.d(TAG, "Sending activity result to plugin");
             initCallbackService = null;
             savedResult = null;
             callback.onActivityResult(requestCode, resultCode, intent);
             return true;
         }
-        Log.w(TAG, "Got an activity result, but no plugin was registered to receive it" + (savedResult != null ? " yet!" : "."));
+        LOG.w(TAG, "Got an activity result, but no plugin was registered to receive it" + (savedResult != null ? " yet!" : "."));
         return false;
     }
 
@@ -208,24 +216,22 @@ public class CordovaInterfaceImpl implements CordovaInterface {
      */
     public void onRequestPermissionResult(int requestCode, String[] permissions,
                                           int[] grantResults) throws JSONException {
-        if(permissionResultCallback != null)
-        {
-            permissionResultCallback.onRequestPermissionResult(requestCode, permissions, grantResults);
-            permissionResultCallback = null;
+        Pair<CordovaPlugin, Integer> callback = permissionResultCallbacks.getAndRemoveCallback(requestCode);
+        if(callback != null) {
+            callback.first.onRequestPermissionResult(callback.second, permissions, grantResults);
         }
     }
 
     public void requestPermission(CordovaPlugin plugin, int requestCode, String permission) {
-        permissionResultCallback = plugin;
         String[] permissions = new String [1];
         permissions[0] = permission;
-        getActivity().requestPermissions(permissions, requestCode);
+        requestPermissions(plugin, requestCode, permissions);
     }
 
-    public void requestPermissions(CordovaPlugin plugin, int requestCode, String [] permissions)
-    {
-        permissionResultCallback = plugin;
-        getActivity().requestPermissions(permissions, requestCode);
+        @SuppressLint("NewApi")
+    public void requestPermissions(CordovaPlugin plugin, int requestCode, String [] permissions) {
+        int mappedRequestCode = permissionResultCallbacks.registerCallback(plugin, requestCode);
+        getActivity().requestPermissions(permissions, mappedRequestCode);
     }
 
     public boolean hasPermission(String permission)
